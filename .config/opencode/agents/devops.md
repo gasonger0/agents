@@ -1,7 +1,7 @@
 ---
 description: "DevOps diagnostician. Reads Docker/CI configs and runs read-only diagnostics. Proposes changes to Architect."
 mode: subagent
-model: deepseek-v4-flash
+model: <provider_name>/deepseek-v4-flash-0731
 temperature: 0.1
 permission:
   edit: deny

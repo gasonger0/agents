@@ -1,7 +1,7 @@
 ---
 description: "Read-only code explorer. Searches and reads codebase (local or remote via SSH-MCP)."
 mode: subagent
-model: qwen3-4b-2507
+model: <provider_name>/qwen3-4b-2507
 temperature: 0.1
 permission:
   edit: deny

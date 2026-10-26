@@ -1,7 +1,7 @@
 ---
 description: "Documentation writer. Maintains OpenAPI/Swagger, README, and docs. Read-only outside docs/."
 mode: subagent
-model: gemma-4-26b-a4b
+model: <provider_name>/gemma-4-26b-a4b
 temperature: 0.2
 permission:
   edit:

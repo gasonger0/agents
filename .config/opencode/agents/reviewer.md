@@ -1,7 +1,7 @@
 ---
 description: "Final quality gate. Read-only. Uses grill-me for adversarial review and ECC for deep analysis."
 mode: subagent
-model: qwen3.8-27b
+model: <provider_name>/qwen3.8-27b
 temperature: 0.1
 permission:
   edit: deny

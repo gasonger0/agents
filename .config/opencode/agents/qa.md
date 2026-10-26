@@ -1,7 +1,7 @@
 ---
 description: "QA engineer. Creates TDD test plans before implementation. Read-only outside test files."
 mode: subagent
-model: glm-5.3-flash
+model: <provider_name>/glm-5.3-flash
 temperature: 0.1
 permission:
   edit:

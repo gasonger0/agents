@@ -1,7 +1,7 @@
 ---
 description: "Backend developer. Implements server-side code (PHP/Go) strictly within approved plan."
 mode: subagent
-model: qwen3.6-35b-a3b
+model: <provider_name>/qwen3.6-35b-a3b
 temperature: 0.2
 permission:
   edit:

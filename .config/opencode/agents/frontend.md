@@ -1,7 +1,7 @@
 ---
 description: "Frontend developer. Implements UI code (Vue/React/TS) strictly within approved plan."
 mode: subagent
-model: glm-5.3-flash
+model: <provider_name>/glm-5.3-flash
 temperature: 0.2
 permission:
   edit:

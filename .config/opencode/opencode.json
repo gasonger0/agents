@@ -1,11 +1,11 @@
 {
   "provider": {
-    "<name>": {
+    "<provider_name>": {
       "npm": "@ai-sdk/openai-compatible",
-      "name": "<name>",
+      "name": "<provider_name>",
       "options": {
-        "baseURL": "<custom_host>",
-        "apiKey": "sk-<your_api_key>"
+        "baseURL": "<provider_url>",
+        "apiKey": "<your_API_key>"
       },
       "models": {
         "deepseek-v4-flash-0731":  {
@@ -64,7 +64,7 @@
           }
         },
         "qwen3-4b-2507":  {
-          "name": "qwen3.6-35b-a3b",
+          "name": "qwen3-4b-2507",
           "modalities": {
             "input": ["text"],
             "output": ["text"]
@@ -122,7 +122,7 @@
   "agents": {
     "architect": {
       "mode": "primary",
-      "model": "qwen3.8-27b",
+      "model": "<provider_name>/qwen3.8-27b",
       "temperature": 0.1,
       "permission": {
         "edit": {
@@ -177,7 +177,7 @@
     },
     "backend": {
       "mode": "subagent",
-      "model": "qwen3.6-35b-a3b",
+      "model": "<provider_name>/qwen3.6-35b-a3b",
       "temperature": 0.2,
       "permission": {
         "edit": {
@@ -206,7 +206,7 @@
     },
     "frontend": {
       "mode": "subagent",
-      "model": "glm-5.3-flash",
+      "model": "<provider_name>/glm-5.3-flash",
       "temperature": 0.2,
       "permission": {
         "edit": {
@@ -237,7 +237,7 @@
     },
     "explore": {
       "mode": "subagent",
-      "model": "qwen3-4b-2507",
+      "model": "<provider_name>/qwen3-4b-2507",
       "temperature": 0.1,
       "permission": {
         "edit": "deny",
@@ -253,7 +253,7 @@
     },
     "reviewer": {
       "mode": "subagent",
-      "model": "qwen3.8-27b",
+      "model": "<provider_name>/qwen3.8-27b",
       "temperature": 0.1,
       "permission": {
         "edit": "deny",
@@ -269,7 +269,7 @@
     },
     "documenter": {
       "mode": "subagent",
-      "model": "gemma-4-26b-a4b",
+      "model": "<provider_name>/gemma-4-26b-a4b",
       "temperature": 0.2,
       "permission": {
         "edit": {
@@ -289,7 +289,7 @@
     },
     "devops": {
       "mode": "subagent",
-      "model": "deepseek-v4-flash",
+      "model": "<provider_name>/deepseek-v4-flash-0731",
       "temperature": 0.1,
       "permission": {
         "edit": "deny",

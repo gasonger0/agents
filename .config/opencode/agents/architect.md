@@ -1,7 +1,7 @@
 ---
 description: "Lead architect and single point of contact. All plans require manual user approval."
 mode: primary
-model: qwen3.8-27b
+model: <provider_name>/qwen3.8-27b
 temperature: 0.1
 permission:
   edit:
