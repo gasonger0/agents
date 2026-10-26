@@ -1,0 +1,89 @@
+{
+  "env": {
+    "ANTHROPIC_BASE_URL": "https://api.deepseek.com/anthropic",
+    "ANTHROPIC_AUTH_TOKEN": "sk-<your_api_key>",
+    "ANTHROPIC_MODEL": "deepseek-flash[1m]",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "deepseek-flash[1m]",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "deepseek-flash[1m]",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "deepseek-flash",
+    "CLAUDE_CODE_SUBAGENT_MODEL": "deepseek-flash",
+    "CLAUDE_CODE_EFFORT_LEVEL": "max"
+  },
+  "enabledPlugins": {
+    "superpowers@claude-plugins-official": true,
+    "ecc@ecc": true
+  },
+  "extraKnownMarketplaces": {
+    "ecc": {
+      "source": {
+        "source": "git",
+        "url": "https://github.com/affaan-m/ECC.git"
+      }
+    }
+  },
+  "theme": "dark",
+  "pluginConfigs": {
+    "ecc@ecc": {
+      "options": {
+        "hooks_enabled": true
+      }
+    }
+  },
+  "permissions": {
+    "allow": [
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(grep:*)",
+      "Bash(find:*)",
+      "Bash(npm run:*)",
+      "Bash(npx vitest:*)",
+      "Bash(php:*)",
+      "Bash(composer:*)",
+      "Bash(phpunit:*)",
+      "Bash(go build:*)",
+      "Bash(go test:*)",
+      "Bash(eslint:*)",
+      "Bash(prettier:*)",
+      "Bash(docker ps:*)",
+      "Bash(docker logs:*)",
+      "Bash(docker compose config:*)",
+      "Read(**)",
+      "Edit(docs/**)",
+      "Edit(tests/**)",
+      "Edit(src/**)",
+      "Edit(app/**)",
+      "Edit(resources/js/**)",
+      "Edit(openapi/**)",
+      "Edit(swagger/**)",
+      "Edit(**/*.md)",
+      "MCPTool(ssh:ssh_read_file)",
+      "MCPTool(ssh:ssh_write_file)"
+    ],
+    "deny": [
+      "Bash(git push:*)",
+      "Bash(rm -rf:*)",
+      "Bash(npm install:*)",
+      "Bash(composer require:*)",
+      "Bash(docker build:*)",
+      "Bash(docker push:*)",
+      "Bash(sudo:*)",
+      "Read(.env)",
+      "Read(**/*.key)",
+      "Read(**/*.pem)"
+    ],
+    "ask": [
+      "Bash(docker exec:*)",
+      "MCPTool(ssh:ssh_exec)"
+    ]
+  },
+
+  "mcpServers": {
+    "ssh": {
+      "command": "npx",
+      "args": ["-y", "opencode-plugin-ssh"]
+    }
+  }
+}
