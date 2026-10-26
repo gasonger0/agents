@@ -1,0 +1,308 @@
+{
+  "provider": {
+    "<name>": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "<name>",
+      "options": {
+        "baseURL": "<custom_host>",
+        "apiKey": "sk-<your_api_key>"
+      },
+      "models": {
+        "deepseek-v4-flash-0731":  {
+          "name": "deepseek-v4-flash-0731",
+          "modalities": {
+            "input": ["text"],
+            "output": ["text"]
+          },
+          "limit": {
+            "context": 204800,
+            "output": 64000
+          }
+        },
+        "glm-5.3-flash":  {
+          "name": "glm-5.3-flash",
+          "modalities": {
+            "input": ["text"],
+            "output": ["text"]
+          },
+          "limit": {
+            "context": 262144,
+            "output": 64000
+          }
+        },
+        "qwen3.6-35b-a3b": {
+          "name": "qwen3.6-35b-a3b",
+          "modalities": {
+            "input": ["text"],
+            "output": ["text"]
+          },
+          "limit": {
+            "context": 131072,
+            "output": 64000
+          }
+        },
+        "gemma-4-26b-a4b":  {
+          "name": "gemma-4-26b-a4b",
+          "modalities": {
+            "input": ["text"],
+            "output": ["text"]
+          },
+          "limit": {
+            "context": 131072,
+            "output": 32000
+          }
+        },
+        "qwen3.8-27b": {
+          "name": "qwen3.8-27b",
+          "modalities": {
+            "input": ["text"],
+            "output": ["text"]
+          },
+          "limit": {
+            "context": 262144,
+            "output": 32000
+          }
+        },
+        "qwen3-4b-2507":  {
+          "name": "qwen3.6-35b-a3b",
+          "modalities": {
+            "input": ["text"],
+            "output": ["text"]
+          },
+          "limit": {
+            "context": 32768,
+            "output": 32000
+          }
+        }
+      }
+    }
+  },
+  "plugin": [
+    "superpowers@git+https://github.com/obra/superpowers.git",
+    "@foae/opencode-timings@latest"
+  ],
+  "$schema": "https://opencode.ai/config.json",
+  "default_agent": "architect",
+  "model": "qwen3.8-27b",
+  "small_model": "qwen3-4b-2507",
+  "permission": {
+    "*": "ask",
+    "bash": {
+      "*": "ask",
+      "git status*": "allow",
+      "git diff*": "allow",
+      "git log*": "allow",
+      "ls *": "allow",
+      "cat *": "allow",
+      "grep *": "allow",
+      "find *": "allow",
+      "npm run *": "allow",
+      "npx vitest*": "allow",
+      "php *": "allow",
+      "composer *": "allow",
+      "phpunit*": "allow",
+      "go build*": "allow",
+      "go test*": "allow",
+      "eslint *": "allow",
+      "prettier *": "allow",
+      "docker ps*": "allow",
+      "docker logs*": "allow",
+      "docker compose config*": "allow"
+    },
+    "edit": "deny"
+  },
+  "mcp": {
+    "ssh": {
+      "type": "local",
+      "command": "npx",
+      "args": ["-y", "opencode-plugin-ssh"],
+      "enabled": true
+    }
+  },
+  "agents": {
+    "architect": {
+      "mode": "primary",
+      "model": "qwen3.8-27b",
+      "temperature": 0.1,
+      "permission": {
+        "edit": {
+          "*": "deny",
+          "docs/specs/*": "allow",
+          "docs/plans/*": "allow"
+        },
+        "bash": {
+          "*": "ask",
+          "git *": "allow",
+          "ls *": "allow",
+          "cat *": "allow"
+        },
+        "subagent": {
+          "*": "deny",
+          "explore": "allow",
+          "qa": "allow",
+          "backend": "allow",
+          "frontend": "allow",
+          "reviewer": "allow",
+          "documenter": "allow",
+          "devops": "allow"
+        },
+        "mcp": {
+          "*": "deny",
+          "ssh_exec": "ask",
+          "ssh_read_file": "allow"
+        }
+      }
+    },
+    "qa": {
+      "mode": "subagent",
+      "model": "glm-5.3-flash",
+      "temperature": 0.1,
+      "permission": {
+        "edit": {
+          "*": "deny",
+          "docs/tests/*": "allow",
+          "tests/*": "allow",
+          "**/*.test.*": "allow",
+          "**/*.spec.*": "allow"
+        },
+        "bash": {
+          "*": "ask",
+          "vitest*": "allow",
+          "phpunit*": "allow",
+          "npm run test*": "allow",
+          "composer test*": "allow"
+        },
+        "mcp": { "*": "deny", "ssh_read_file": "allow" }
+      }
+    },
+    "backend": {
+      "mode": "subagent",
+      "model": "qwen3.6-35b-a3b",
+      "temperature": 0.2,
+      "permission": {
+        "edit": {
+          "*": "deny",
+          "src/**": "allow",
+          "app/**": "allow",
+          "tests/**": "allow",
+          "!src/frontend/**": "deny"
+        },
+        "bash": {
+          "*": "ask",
+          "php *": "allow",
+          "composer *": "allow",
+          "phpunit*": "allow",
+          "go build*": "allow",
+          "go test*": "allow",
+          "docker exec *": "ask"
+        },
+        "mcp": {
+          "*": "deny",
+          "ssh_read_file": "allow",
+          "ssh_write_file": "allow",
+          "ssh_exec": "ask"
+        }
+      }
+    },
+    "frontend": {
+      "mode": "subagent",
+      "model": "glm-5.3-flash",
+      "temperature": 0.2,
+      "permission": {
+        "edit": {
+          "*": "deny",
+          "src/frontend/**": "allow",
+          "resources/js/**": "allow",
+          "src/components/**": "allow",
+          "tests/js/**": "allow",
+          "**/*.vue": "allow",
+          "**/*.tsx": "allow",
+          "**/*.ts": "allow",
+          "!src/backend/**": "deny"
+        },
+        "bash": {
+          "*": "ask",
+          "npm run *": "allow",
+          "npx vitest*": "allow",
+          "eslint *": "allow",
+          "prettier *": "allow"
+        },
+        "mcp": {
+          "*": "deny",
+          "ssh_read_file": "allow",
+          "ssh_write_file": "allow",
+          "ssh_exec": "ask"
+        }
+      }
+    },
+    "explore": {
+      "mode": "subagent",
+      "model": "qwen3-4b-2507",
+      "temperature": 0.1,
+      "permission": {
+        "edit": "deny",
+        "bash": {
+          "*": "ask",
+          "grep *": "allow",
+          "find *": "allow",
+          "ls *": "allow",
+          "cat *": "allow"
+        },
+        "mcp": { "*": "deny", "ssh_read_file": "allow", "ssh_exec": "ask" }
+      }
+    },
+    "reviewer": {
+      "mode": "subagent",
+      "model": "qwen3.8-27b",
+      "temperature": 0.1,
+      "permission": {
+        "edit": "deny",
+        "bash": {
+          "*": "ask",
+          "git diff*": "allow",
+          "git log*": "allow",
+          "vitest*": "allow",
+          "phpunit*": "allow"
+        },
+        "mcp": { "*": "deny", "ssh_read_file": "allow", "ssh_exec": "ask" }
+      }
+    },
+    "documenter": {
+      "mode": "subagent",
+      "model": "gemma-4-26b-a4b",
+      "temperature": 0.2,
+      "permission": {
+        "edit": {
+          "*": "deny",
+          "docs/**": "allow",
+          "*.md": "allow",
+          "openapi/**": "allow",
+          "swagger/**": "allow"
+        },
+        "bash": { "*": "ask", "ls *": "allow", "cat *": "allow" },
+        "mcp": {
+          "*": "deny",
+          "ssh_read_file": "allow",
+          "ssh_write_file": "allow"
+        }
+      }
+    },
+    "devops": {
+      "mode": "subagent",
+      "model": "deepseek-v4-flash",
+      "temperature": 0.1,
+      "permission": {
+        "edit": "deny",
+        "bash": {
+          "*": "ask",
+          "docker ps*": "allow",
+          "docker logs*": "allow",
+          "docker compose config*": "allow",
+          "ls *": "allow",
+          "cat *": "allow"
+        },
+        "mcp": { "*": "deny", "ssh_read_file": "allow", "ssh_exec": "ask" }
+      }
+    }
+  }
+}
