@@ -8,8 +8,9 @@
         "apiKey": "<your_API_key>"
       },
       "models": {
-        "deepseek-v4-flash-0731":  {
+        "deepseek-v4-flash-0731": {
           "name": "deepseek-v4-flash-0731",
+          "reasoning": true,
           "modalities": {
             "input": ["text"],
             "output": ["text"]
@@ -17,10 +18,25 @@
           "limit": {
             "context": 204800,
             "output": 64000
+          },
+          "variants": {
+            "fast": {
+              "options": {
+                "reasoningEffort": "low",
+                "reasoningSummary": "concise"
+              }
+            },
+            "deep": {
+              "options": {
+                "reasoningEffort": "high",
+                "reasoningSummary": "detailed"
+              }
+            }
           }
         },
-        "glm-5.3-flash":  {
+        "glm-5.3-flash": {
           "name": "glm-5.3-flash",
+          "reasoning": true,
           "modalities": {
             "input": ["text"],
             "output": ["text"]
@@ -28,10 +44,25 @@
           "limit": {
             "context": 262144,
             "output": 64000
+          },
+          "variants": {
+            "fast": {
+              "options": {
+                "reasoningEffort": "low",
+                "reasoningSummary": "concise"
+              }
+            },
+            "deep": {
+              "options": {
+                "reasoningEffort": "high",
+                "reasoningSummary": "detailed"
+              }
+            }
           }
         },
         "qwen3.6-35b-a3b": {
           "name": "qwen3.6-35b-a3b",
+          "reasoning": true,
           "modalities": {
             "input": ["text"],
             "output": ["text"]
@@ -39,9 +70,12 @@
           "limit": {
             "context": 131072,
             "output": 64000
+          },
+          "options": {
+            "reasoningSummary": "concise"
           }
         },
-        "gemma-4-26b-a4b":  {
+        "gemma-4-26b-a4b": {
           "name": "gemma-4-26b-a4b",
           "modalities": {
             "input": ["text"],
@@ -50,10 +84,25 @@
           "limit": {
             "context": 131072,
             "output": 32000
+          },
+          "variants": {
+            "fast": {
+              "options": {
+                "reasoningEffort": "low",
+                "reasoningSummary": "concise"
+              }
+            },
+            "deep": {
+              "options": {
+                "reasoningEffort": "high",
+                "reasoningSummary": "detailed"
+              }
+            }
           }
         },
         "qwen3.8-27b": {
           "name": "qwen3.8-27b",
+          "reasoning": true,
           "modalities": {
             "input": ["text"],
             "output": ["text"]
@@ -61,17 +110,20 @@
           "limit": {
             "context": 262144,
             "output": 32000
-          }
-        },
-        "qwen3-4b-2507":  {
-          "name": "qwen3-4b-2507",
-          "modalities": {
-            "input": ["text"],
-            "output": ["text"]
           },
-          "limit": {
-            "context": 32768,
-            "output": 32000
+          "variants": {
+            "fast": {
+              "options": {
+                "reasoningEffort": "low",
+                "reasoningSummary": "concise"
+              }
+            },
+            "deep": {
+              "options": {
+                "reasoningEffort": "high",
+                "reasoningSummary": "detailed"
+              }
+            }
           }
         }
       }
@@ -79,12 +131,15 @@
   },
   "plugin": [
     "superpowers@git+https://github.com/obra/superpowers.git",
-    "@foae/opencode-timings@latest"
+    "@foae/opencode-timings@latest",
+    "opencode-dynamic-workflow-plugin"
   ],
+  "subagent_depth": 2,
   "$schema": "https://opencode.ai/config.json",
   "default_agent": "architect",
-  "model": "qwen3.8-27b",
-  "small_model": "qwen3-4b-2507",
+  "model": "<provider_name>/qwen3.8-27b",
+  "small_model": "<provider_name>/gemma-4-26b-a4b",
+  "lsp": true,
   "permission": {
     "*": "ask",
     "bash": {
@@ -114,9 +169,7 @@
   "mcp": {
     "ssh": {
       "type": "local",
-      "command": "npx",
-      "args": ["-y", "opencode-plugin-ssh"],
-      "enabled": true
+      "command": ["npx", "-y", "opencode-plugin-ssh"]
     }
   },
   "agents": {
@@ -155,7 +208,7 @@
     },
     "qa": {
       "mode": "subagent",
-      "model": "glm-5.3-flash",
+      "model": "<provider_name>/glm-5.3-flash",
       "temperature": 0.1,
       "permission": {
         "edit": {
@@ -237,7 +290,7 @@
     },
     "explore": {
       "mode": "subagent",
-      "model": "<provider_name>/qwen3-4b-2507",
+      "model": "<provider_name>/gemma-4-26b-a4b",
       "temperature": 0.1,
       "permission": {
         "edit": "deny",
